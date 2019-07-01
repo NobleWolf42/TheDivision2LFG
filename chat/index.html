@@ -7,7 +7,7 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       var username = '';
-      
+
       function showUsername() {
         username = document.getElementById('user').value
         document.getElementById('showusername').innerHTML = username
@@ -33,7 +33,7 @@
   
   <body>
     <div id='userid'>
-      <form id='u' action="">
+      <form class='u' id='u' action="">
         <input id="user">
         <input type="submit" onclick="showUsername();">
         <p><span id='showusername'><span style="color: red">Please Enter A Username</span></span></p>
