@@ -25,7 +25,7 @@ function updateNicknames() {
   io.socket.emit('usernames', Object.keys(users));
 };
 
-socket.on('send message', function(data){
+io.socket.on('send message', function(data){
   io.sockets.emi('new message', {msg: data, nick: socket.nickname})
 });
 
