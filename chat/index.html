@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
-  <script src="http://1.2.3.4:1223/socket.io/socket.io.js"></script>
-  <script src="http://1.2.3.4/js/jquery.js"></script>
-  <script src="http://1.2.3.4/js/bootstrap.js"></script>
-  <link rel="stylesheet" type="text/css" href="http://1.2.3.4/css/bootstrap.css">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
   <script>
     $(document).ready(function () {
-      var socket = io.connect("1.2.3.4:1223");
+      var socket = io.connect("noblewolf42.com:3000");
       $("#chat").hide();
       $("#name").focus();
       $("form").submit(function (event) {
