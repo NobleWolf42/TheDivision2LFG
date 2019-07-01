@@ -1,6 +1,6 @@
-var io = require("socket.io");
+var io = require("socket.io")(http);
 
-var socket = io.listen(3000, "localhost");
+var socket = io;
 
 socket.set("log level", 1);
 var people = {};
@@ -23,4 +23,9 @@ socket.on("connection", function (client) {
         delete people[client.id];
         socket.sockets.emit("update-people", people);
     });
+    
+});
+
+http.listen(port, function () {
+    console.log('listening on *:' + port);
 });
