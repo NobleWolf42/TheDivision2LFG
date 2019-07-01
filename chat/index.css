@@ -33,6 +33,7 @@ form button {
 form.u {
   background: #000;
   padding: 3px;
+  padding-bottom: 15px;
   position: fixed;
   top: 0;
   width: 100%;
@@ -42,7 +43,7 @@ form.u {
 form.u input {
   border: 0;
   padding: 10px;
-  padding-bottom: 15px;
+  
   width: 80%;
   margin-right: .5%;
 }
