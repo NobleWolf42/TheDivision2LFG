@@ -44,6 +44,7 @@
         var $nickForm = $('#setNick');
         var $nickError = $('#nickError');
         var $nickBox = $('#nickname');
+        var $users = $('#users');
         var $messageForm = $('#send-message');
         var $messageBox = $('#message');
         var $chat = $('#chat');
@@ -51,9 +52,23 @@
         $nickForm.submit (function(e){
           e.preventDefault();
           socket.emit('new user', $nickBox.val(), function (data) {
-            
+            if(data){
+              $('#nickWrap').hide();
+              $('#contentWrap').show();
+            }
+            else{
+              $nickError.html('That username is alredy taken! Try again.');
+            }
           });
           $nickBox.val('');
+        });
+
+        socket.on('usernames', function(data){
+          var html = '';
+          for (i=0; i < data.length; i++) {
+            html += data[i] + '<br/>'
+          }
+          $users.html(html);
         });
 
         $messageForm.submit(function (e) {
@@ -63,7 +78,7 @@
         });
 
         socket.on('new message', function (data) {
-          $chat.append(data + "<br/>");
+          $chat.append('<b>'+ data.nick + '</b>' + data.msg + "<br/>");
         });
 
 
