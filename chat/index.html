@@ -52,13 +52,13 @@
         $nickForm.submit (function(e){
           e.preventDefault();
           socket.emit('new user', $nickBox.val(), function (data) {
-            if(data){
+            //if(data){
               $('#nickWrap').hide();
               $('#contentWrap').show();
-            }
-            else{
+            //}
+            //else{
               $nickError.html('That username is alredy taken! Try again.');
-            }
+            //}
           });
           $nickBox.val('');
         });
