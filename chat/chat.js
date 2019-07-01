@@ -1,6 +1,6 @@
 var io = require("socket.io");
 
-var socket = io.listen(1223, "1.2.3.4");
+var socket = io.listen(3000, "localhost");
 
 socket.set("log level", 1);
 var people = {};
