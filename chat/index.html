@@ -2,92 +2,18 @@
 <html>
   <head>
     <title>Socket.IO chat</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font: 13px Helvetica, Arial;
-      }
-
-      form {
-        background: #000;
-        padding: 3px;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-      }
-
-      form input {
-        border: 0;
-        padding: 10px;
-        width: 90%;
-        margin-right: .5%;
-      }
-
-      form button {
-        width: 9%;
-        background: rgb(130, 224, 255);
-        border: none;
-        padding: 10px;
-      }
-
-      #chatroom {
-        display: none;
-      }
-
-      #messages {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-      }
-
-      #messages li {
-        padding: 5px 10px;
-      }
-
-      #messages li:nth-child(odd) {
-        background: #eee;
-      }
-
-      #messages {
-        margin-bottom: 40px
-      }
-    </style>
-  </head>
-
-  
-  <body>
-    <div id='userid'>
-    <p>Please Enter A Username:</p>
-      <form action="">
-        <input id="u" autocomplete="off" /><button>Send</button>
-      </form>
-    </div>
-    <div id="chatroom">
-      <ul id="messages"></ul>
-      <form action="">
-        <input id="m" autocomplete="off" /><button>Send</button>
-      </form>
-    </div>
+    <link rel="stylesheet" type='text/css' href="index.css">
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
+      var username = document.getElementById('user').value
+      function showUsername() {
+        document.getElementById('showusername').innerHTML = $username
+      }
+    </script>
+    <script>
       $(function () {
         var socket = io();
-
-        socket.on("isConnected", function (data) {
-          // Receive the 'data' and check if 'isConnected' is true
-
-          if (data.isConnected != '') {
-            // Now hide the div.
-            getElementById("userid").style.display: "none";
-            getElementById("chatroom").style.display: "block";
-          }
-        });
 
         $('form').submit(function () {
           socket.emit('chat message', $('#m').val());
@@ -100,5 +26,21 @@
         });
       });
     </script>
+  </head>
+
+  
+  <body>
+    <div id='userid'>
+      <form id='u' action="">
+        <input id="user" autocomplete="off" /><button>Send</button>
+        <p><span id='showusername'><span style="color: red">Please Enter A Username</span></span></p>
+      </form>
+    </div>
+    <div id="chatroom">
+      <ul id="messages"></ul>
+      <form action="">
+        <input id="m" autocomplete="off" /><button>Send</button>
+      </form>
+    </div>
   </body>
 </html>
