@@ -8,7 +8,7 @@
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
   <script>
     $(document).ready(function () {
-      var socket = io.connect("noblewolf42.com:3000");
+      var socket = io.();
       $("#chat").hide();
       $("#name").focus();
       $("form").submit(function (event) {
@@ -59,7 +59,7 @@
         }
       });
 
-      socket.on("disconnect", function () {
+      io.on("disconnect", function () {
         $("#msgs").append("<li><strong><span class='text-warning'>The server is not available</span></strong></li>");
         $("#msg").attr("disabled", "disabled");
         $("#send").attr("disabled", "disabled");
