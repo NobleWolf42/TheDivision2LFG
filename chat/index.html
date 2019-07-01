@@ -51,19 +51,19 @@
 
         $nickForm.submit (function(e){
           e.preventDefault();
-          socket.emit('new user', $nickBox.val(), function (data) {
-            //if(data){
+          io.emit('new user', $nickBox.val(), function (data) {
+            if(data){
               $('#nickWrap').hide();
               $('#contentWrap').show();
-            //}
-            //else{
-              //$nickError.html('That username is alredy taken! Try again.');
-            //}
+            }
+            else{
+              $nickError.html('That username is alredy taken! Try again.');
+            }
           });
           $nickBox.val('');
         });
 
-        socket.on('usernames', function(data){
+        io.on('usernames', function(data){
           var html = '';
           for (i=0; i < data.length; i++) {
             html += data[i] + '<br/>'
@@ -73,11 +73,11 @@
 
         $messageForm.submit(function (e) {
           e.prevent.Default();
-          socket.emit('send mesage', $messageBox.val());
+          io.emit('send mesage', $messageBox.val());
           $messageBox.val('');
         });
 
-        socket.on('new message', function (data) {
+        io.on('new message', function (data) {
           $chat.append('<b>'+ data.nick + '</b>' + data.msg + "<br/>");
         });
 
