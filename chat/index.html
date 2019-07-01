@@ -1,115 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 
 <head>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="/js/jquery.js"></script>
-  <script src="/js/bootstrap.js"></script>
-  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-  <script>
-    $(document).ready(function () {
-      var socket = io.();
-      $("#chat").hide();
-      $("#name").focus();
-      $("form").submit(function (event) {
-        event.preventDefault();
-      });
+  <title>Socket.IO chat</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-      $("#join").click(function () {
-        var name = $("#name").val();
-        if (name != "") {
-          socket.emit("join", name);
-          $("#login").detach();
-          $("#chat").show();
-          $("#msg").focus();
-          ready = true;
-        }
-      });
+    body {
+      font: 13px Helvetica, Arial;
+    }
 
-      $("#name").keypress(function (e) {
-        if (e.which == 13) {
-          var name = $("#name").val();
-          if (name != "") {
-            socket.emit("join", name);
-            ready = true;
-            $("#login").detach();
-            $("#chat").show();
-            $("#msg").focus();
-          }
-        }
-      });
+    form {
+      background: #000;
+      padding: 3px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
 
-      socket.on("update", function (msg) {
-        if (ready)
-          $("#msgs").append("<li>" + msg + "</li>");
-      })
+    form input {
+      border: 0;
+      padding: 10px;
+      width: 90%;
+      margin-right: .5%;
+    }
 
-      socket.on("update-people", function (people) {
-        if (ready) {
-          $("#people").empty();
-          $.each(people, function (clientid, name) {
-            $('#people').append("<li>" + name + "</li>");
-          });
-        }
-      });
+    form button {
+      width: 9%;
+      background: rgb(130, 224, 255);
+      border: none;
+      padding: 10px;
+    }
 
-      socket.on("chat", function (who, msg) {
-        if (ready) {
-          $("#msgs").append("<li><strong><span class='text-success'>" + who + "</span></strong> says: " + msg + "</li>");
-        }
-      });
+    #messages {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
 
-      io.on("disconnect", function () {
-        $("#msgs").append("<li><strong><span class='text-warning'>The server is not available</span></strong></li>");
-        $("#msg").attr("disabled", "disabled");
-        $("#send").attr("disabled", "disabled");
-      });
+    #messages li {
+      padding: 5px 10px;
+    }
 
+    #messages li:nth-child(odd) {
+      background: #eee;
+    }
 
-      $("#send").click(function () {
-        var msg = $("#msg").val();
-        socket.emit("send", msg);
-        $("#msg").val("");
-      });
-
-      $("#msg").keypress(function (e) {
-        if (e.which == 13) {
-          var msg = $("#msg").val();
-          socket.emit("send", msg);
-          $("#msg").val("");
-        }
-      });
-
-    });
-  </script>
+    #messages {
+      margin-bottom: 40px
+    }
+  </style>
+</head>
 
 <body>
-
-  <div class="row">
-    <div class="span2">
-      <ul id="people" class="unstyled"></ul>
-    </div>
-    <div class="span4">
-      <ul id="msgs" class="unstyled"></ul>
-    </div>
-  </div>
-  <div class="row">
-    <div class="span5 offset2" id="login">
-      <form class="form-inline">
-        <input type="text" class="input-small" placeholder="Your name" id="name">
-        <input type="button" name="join" id="join" value="Join" class="btn btn-primary">
-      </form>
-    </div>
-
-    <div class="span5 offset2" id="chat">
-      <form id="2" class="form-inline">
-        <input type="text" class="input" placeholder="Your message" id="msg">
-        <input type="button" name="send" id="send" value="Send" class="btn btn-success">
-      </form>
-    </div>
-  </div>
-  </div>
-
+  <ul id="messages"></ul>
+  <form action="">
+    <input id="m" autocomplete="off" /><button>Send</button>
+  </form>
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script>
+    $(function () {
+      var socket = io();
+      $('form').submit(function () {
+        socket.emit('chat message', $('#m').val());
+        $('#m').val('');
+        return false;
+      });
+      socket.on('chat message', function (msg) {
+        $('#messages').append($('<li>').text(msg));
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+    });
+  </script>
 </body>
 
 </html>
