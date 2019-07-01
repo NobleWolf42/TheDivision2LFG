@@ -29,7 +29,7 @@ io.on('send message', function(data){
   io.sockets.emi('new message', {msg: data, nick: socket.nickname})
 });
 
-socket.on('disconnect', function(data){
+io.on('disconnect', function(data){
   if (!socket.nickname) return;
   delete users[socket.nickname];
   updateNicknames();
