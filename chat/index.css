@@ -42,12 +42,12 @@ form.u {
 form.u input {
   border: 0;
   padding: 10px;
-  width: 90%;
+  width: 80%;
   margin-right: .5%;
 }
 
 form.u button {
-  width: 9%;
+  width: 10%;
   background: rgb(130, 224, 255);
   border: none;
   padding: 10px;
