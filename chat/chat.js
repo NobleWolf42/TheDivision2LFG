@@ -4,6 +4,10 @@ var io = require("socket.io")(http);
 var port = process.env.PORT || 3000;
 var people = {};
 
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/index.html');
+});
+
 io.on("connection", function (client) {
 
     client.on("join", function (name) {
