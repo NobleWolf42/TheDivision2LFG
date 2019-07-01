@@ -22,7 +22,7 @@ io.sockets.on('connection', function(socket){
 });
 
 function updateNicknames() {
-  io.socket.emit('usernames', Object.keys(users));
+  io.emit('usernames', Object.keys(users));
 };
 
 io.on('send message', function(data){
