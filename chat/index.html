@@ -82,7 +82,7 @@
         socket.on("isConnected", function (data) {
           // Receive the 'data' and check if 'isConnected' is true
 
-          if (data.isConnected == true) {
+          if (data.isConnected != '') {
             // Now hide the div.
             getElementById("userid").style.display: "none";
             getElementById("chatroom").style.display: "block";
