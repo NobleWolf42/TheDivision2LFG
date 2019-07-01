@@ -14,7 +14,7 @@ io.on("connection", function (client) {
     });
 
     client.on("send", function (msg) {
-        io..emit("chat", people[client.id], msg);
+        io.emit("chat", people[client.id], msg);
     });
 
     client.on("disconnect", function () {
