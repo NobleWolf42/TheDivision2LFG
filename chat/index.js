@@ -1,26 +1,39 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+users = {};
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
-io.on('connection', function(socket){
-  console.log('a user connected');
+io.sockets.on('connection', function(socket){
+  socket.on('new user', function(data, callback) {
+    if (data in users) {
+      callback(false);
+    }
+    else {
+      callback(true);
+      socket.nickname = data;
+      users[socket.nickname] = socket;
+      updateNicknames();
+    }
+  })
 });
 
-io.on('connection', function(socket){
-    socket.on('chat message', function(msg){
-      console.log('message: ' + msg);
-    });
+function updateNicknames() {
+  io.socket.emit('usernames', Object.keys(users));
+};
+
+socket.on('send message', function(data){
+  io.sockets.emi('new message', {msg: data, nick: socket.nickname})
 });
 
-io.on('connection', function(socket){
-    socket.on('chat message', function(msg){
-      io.emit('chat message', msg);
-    });
-  });  
+socket.on('disconnect', function(data){
+  if (!socket.nickname) return;
+  delete users[socket.nickname];
+  updateNicknames();
+});
 
 http.listen(3000, function(){
   console.log('listening on *:3000');

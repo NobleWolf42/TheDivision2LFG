@@ -3,36 +3,60 @@
   <head>
     <title>Socket.IO chat</title>
     <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
+      #chat{
+        height:500px;
+      }
+      #contentWrap(
+        display: none;
+      )
+      #chatWrap(
+        float: left;
+        border: 1px #000000 solid;
+      )
     </style>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
-        $(function () {
-          var socket = io();
-          $('form').submit(function(e){
-            e.preventDefault(); // prevents page reloading
-            socket.emit('chat message', $('#m').val());
-            $('#m').val('');
-            return false;
-          });
-          socket.on('chat message', function(msg){
-            $('#messages').append($('<li>').text(msg));
-          });
-        });
-      </script>      
   </head>
   <body>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
+    <div id+"nickWrap">
+      <p>Enter a Username:</p>
+      <p id="nickError"></p>
+      <form id="setNick">
+        <input size="35" id="nickname"></input>
+        <input type="submit"></input>
+      </form>
+    </div>
+
+    <div id="chatWrap">
+      <div id="chatWrap">
+        <div id="chat"></div>
+        <form id="send-message">
+          <input size="35" id="message"></input>
+          <input type="submit"></input>
+        </form>
+      </div>
+      <div is="users"></div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      jQuery(function($){
+        var socket = io.connect();
+        var $messageForm = $('#send-message');
+        var $messageBox = $('#message');
+        var $chat = $('#chat');
+
+        $messageForm.submit(function (e) {
+          e.prevent.Default();
+          socket.emit('send mesage', $messageBox.val());
+          $messageBox.val('');
+        });
+
+        socket.on('new message', function (data) {
+          $chat.append(data + "<br/>");
+        });
+
+
+      })
+    </script>
   </body>
 </html>
