@@ -53,10 +53,6 @@ form.u input.us {
   padding: 10px;
 }
 
-#chatroom {
-  display: none;
-}
-
 #messages {
   list-style-type: none;
   margin: 0;
