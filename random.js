@@ -7,7 +7,7 @@ function fibonociseq() {
     var current = seq1 + ',' + seq2;
 
     for (i = 0; i < 10; i++) {
-        seq1 + seq2 = seq3;
+        seq3 = seq1 + seq2;
         seq2 = seq1;
         seq3 = seq2;
         current = current + ',' + seq3;
