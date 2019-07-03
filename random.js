@@ -1,8 +1,8 @@
 function fibonociseq() {
     var fib = document.getElementById("fib");
     var i;
-    var seq1 = parseInt(document.getElementById("seq1").value, base);
-    var seq2 = parseInt(document.getElementById("seq2").value, base);
+    var seq1 = document.getElementById("seq1").value;
+    var seq2 = document.getElementById("seq2").value;
     var seq3;
     var current = seq1 + ',' + seq2;
 
