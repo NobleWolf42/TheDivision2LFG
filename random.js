@@ -7,11 +7,11 @@ function fibonociseq() {
     var current = seq1 + ',' + seq2;
 
     for (i = 0; i < 10; i++) {
-        seq3 = seq1 + seq2;
-        seq2 = seq1;
-        seq3 = seq2;
-        current = current + ',' + seq3;
+        var seq3 = seq1 + seq2;
+        var seq2 = seq1;
+        var seq3 = seq2;
+        var current = current + ',' + seq3;
     }
     
-    fib = current;
+    fib.innerHTML = current;
 }
