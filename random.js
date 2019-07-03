@@ -8,8 +8,8 @@ function fibonociseq() {
 
     for (i = 0; i < 10; i++) {
         var seq3 = seq1 + seq2;
-        var seq2 = seq1;
-        var seq3 = seq2;
+        var seq1 = seq2;
+        var seq2 = seq3;
         var current = current + ',' + seq3;
     }
     
