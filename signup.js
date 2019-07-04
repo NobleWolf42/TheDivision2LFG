@@ -1,7 +1,7 @@
 var mysql = require('mysql');
 var db = require('./mysqldbcon');
 
-con.connect(function (err) {
+db.connect(function (err) {
     if (err) throw err;
     console.log("Connected!");
 });
